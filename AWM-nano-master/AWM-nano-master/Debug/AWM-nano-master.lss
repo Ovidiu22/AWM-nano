@@ -1,0 +1,144 @@
+
+AWM-nano-master.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00800100  00800100  000000ec  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000098  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000000ec  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 00000040  00000000  00000000  0000011c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000040  00000000  00000000  0000015c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000912  00000000  00000000  0000019c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000753  00000000  00000000  00000aae  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   00000a04  00000000  00000000  00001201  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000048  00000000  00000000  00001c08  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00010651  00000000  00000000  00001c50  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000050  00000000  00000000  000122a1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000020  00000000  00000000  000122f1  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_macro  00003c42  00000000  00000000  00012311  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	33 c0       	rjmp	.+102    	; 0x68 <__ctors_end>
+   2:	00 00       	nop
+   4:	39 c0       	rjmp	.+114    	; 0x78 <__bad_interrupt>
+   6:	00 00       	nop
+   8:	37 c0       	rjmp	.+110    	; 0x78 <__bad_interrupt>
+   a:	00 00       	nop
+   c:	35 c0       	rjmp	.+106    	; 0x78 <__bad_interrupt>
+   e:	00 00       	nop
+  10:	33 c0       	rjmp	.+102    	; 0x78 <__bad_interrupt>
+  12:	00 00       	nop
+  14:	31 c0       	rjmp	.+98     	; 0x78 <__bad_interrupt>
+  16:	00 00       	nop
+  18:	2f c0       	rjmp	.+94     	; 0x78 <__bad_interrupt>
+  1a:	00 00       	nop
+  1c:	2d c0       	rjmp	.+90     	; 0x78 <__bad_interrupt>
+  1e:	00 00       	nop
+  20:	2b c0       	rjmp	.+86     	; 0x78 <__bad_interrupt>
+  22:	00 00       	nop
+  24:	29 c0       	rjmp	.+82     	; 0x78 <__bad_interrupt>
+  26:	00 00       	nop
+  28:	27 c0       	rjmp	.+78     	; 0x78 <__bad_interrupt>
+  2a:	00 00       	nop
+  2c:	25 c0       	rjmp	.+74     	; 0x78 <__bad_interrupt>
+  2e:	00 00       	nop
+  30:	23 c0       	rjmp	.+70     	; 0x78 <__bad_interrupt>
+  32:	00 00       	nop
+  34:	21 c0       	rjmp	.+66     	; 0x78 <__bad_interrupt>
+  36:	00 00       	nop
+  38:	1f c0       	rjmp	.+62     	; 0x78 <__bad_interrupt>
+  3a:	00 00       	nop
+  3c:	1d c0       	rjmp	.+58     	; 0x78 <__bad_interrupt>
+  3e:	00 00       	nop
+  40:	1b c0       	rjmp	.+54     	; 0x78 <__bad_interrupt>
+  42:	00 00       	nop
+  44:	19 c0       	rjmp	.+50     	; 0x78 <__bad_interrupt>
+  46:	00 00       	nop
+  48:	17 c0       	rjmp	.+46     	; 0x78 <__bad_interrupt>
+  4a:	00 00       	nop
+  4c:	15 c0       	rjmp	.+42     	; 0x78 <__bad_interrupt>
+  4e:	00 00       	nop
+  50:	13 c0       	rjmp	.+38     	; 0x78 <__bad_interrupt>
+  52:	00 00       	nop
+  54:	11 c0       	rjmp	.+34     	; 0x78 <__bad_interrupt>
+  56:	00 00       	nop
+  58:	0f c0       	rjmp	.+30     	; 0x78 <__bad_interrupt>
+  5a:	00 00       	nop
+  5c:	0d c0       	rjmp	.+26     	; 0x78 <__bad_interrupt>
+  5e:	00 00       	nop
+  60:	0b c0       	rjmp	.+22     	; 0x78 <__bad_interrupt>
+  62:	00 00       	nop
+  64:	09 c0       	rjmp	.+18     	; 0x78 <__bad_interrupt>
+	...
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+  74:	0b d0       	rcall	.+22     	; 0x8c <main>
+  76:	0e c0       	rjmp	.+28     	; 0x94 <_exit>
+
+00000078 <__bad_interrupt>:
+  78:	c3 cf       	rjmp	.-122    	; 0x0 <__vectors>
+
+0000007a <board_init>:
+		port_pin_flags_t flags)
+{
+	/* Select direction and initial pin state */
+	if (flags & IOPORT_DIR_OUTPUT) {
+		if (flags & IOPORT_INIT_HIGH) {
+			*((uint8_t *)port + 2) |= pin_mask;
+  7a:	95 b1       	in	r25, 0x05	; 5
+			*((uint8_t *)port + 2) &= ~pin_mask;
+		}
+
+		*((uint8_t *)port + 1) |= pin_mask;
+	} else {
+		*((uint8_t *)port + 1) &= ~pin_mask;
+  7c:	84 b1       	in	r24, 0x04	; 4
+  7e:	80 62       	ori	r24, 0x20	; 32
+  80:	8f 77       	andi	r24, 0x7F	; 127
+  82:	84 b9       	out	0x04, r24	; 4
+		if (flags & IOPORT_PULL_UP) {
+			*((uint8_t *)port + 2) |= pin_mask;
+  84:	89 2f       	mov	r24, r25
+  86:	80 6a       	ori	r24, 0xA0	; 160
+  88:	85 b9       	out	0x05, r24	; 5
+  8a:	08 95       	ret
+
+0000008c <main>:
+
+#include <asf.h>
+
+int main (void)
+{
+	board_init();
+  8c:	f6 df       	rcall	.-20     	; 0x7a <board_init>
+}
+  8e:	80 e0       	ldi	r24, 0x00	; 0
+  90:	90 e0       	ldi	r25, 0x00	; 0
+  92:	08 95       	ret
+
+00000094 <_exit>:
+  94:	f8 94       	cli
+
+00000096 <__stop_program>:
+  96:	ff cf       	rjmp	.-2      	; 0x96 <__stop_program>
