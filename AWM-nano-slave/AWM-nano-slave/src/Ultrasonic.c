@@ -61,11 +61,11 @@ void init_ultrasonic(void)
 
 /* *****************************************************************
 Name:		getDistance_main()
-Inputs:		pointer to diagnosis
+Inputs:		none
 Outputs:	distance measurements
 Description:triggers measurements and plausibility checks
 ******************************************************************** */
- uint8_t getDistance_main()
+ uint8_t getDistance_main(void)
  {
  	uint8_t distance = 0;
 	float dist = 0;
@@ -97,7 +97,7 @@ Inputs:		none
 Outputs:	none
 Description:Triggers the TRIG pin of the ultrasonic sensor
 ******************************************************************** */
- void triggerUltrasonic()
+ void triggerUltrasonic(void)
  {
 		/* trigger ultrasonic */
 		U_Port_trig |= (1<<U_TRIG_pin);
@@ -114,7 +114,7 @@ Inputs:		none
 Outputs:	measured distance
 Description:converts the pulse length to measurements in cm
 ******************************************************************** */
-float getDistance()
+float getDistance(void)
 {
 	/* factor to be multiplied by pulse
 	f = speedOfSound (343 m/s) * 100 * 8 (prescale factor) / 2 (way-back) / F_CPU;  ( ~0.008575 ); */

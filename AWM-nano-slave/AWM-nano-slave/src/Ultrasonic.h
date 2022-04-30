@@ -36,7 +36,7 @@
 /* Prototype functions */
 void configUltrasonicPorts(void);
 void enable_interrupts(void);
-uint8_t getDistance_main(uint8_t *);
+uint8_t getDistance_main(void);
 float getDistance(void);
 void triggerUltrasonic(void);
 void init_ultrasonic(void);
