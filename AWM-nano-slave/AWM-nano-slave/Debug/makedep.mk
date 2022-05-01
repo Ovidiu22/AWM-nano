@@ -2,6 +2,12 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\Diagnostics.c
+
+src\nRF24L01.c
+
+src\PowerManagement.c
+
 src\SOC.c
 
 src\Ultrasonic.c

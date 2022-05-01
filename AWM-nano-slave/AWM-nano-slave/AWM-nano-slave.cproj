@@ -217,6 +217,24 @@
     <Folder Include="src\config\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Diagnostics.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Diagnostics.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\nRF24L01.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\nRF24L01.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\PowerManagement.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\PowerManagement.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\SOC.c">
       <SubType>compile</SubType>
     </Compile>
