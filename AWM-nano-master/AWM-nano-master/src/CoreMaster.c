@@ -21,28 +21,29 @@ void init_WL_mgmt(void)
 
 /* *****************************************************************
 Name:		MasterCoreMain()
-Inputs:		response from Slave: Routine Control response, payload and Slave diagnostics
+Inputs:		response from Slave: Routine Control response, payload 
 Outputs:	none
 Description:core functionality of the Master: Slave response evaluation
 ******************************************************************** */
-void MasterCoreMain( uint8_t RC_resp, uint8_t distance, uint8_t bat_soc, uint8_t meas_cycles, 0 )
+void MasterCoreMain( uint8_t RC_resp, uint8_t distance, uint8_t bat_soc )
 {
 	/* Select identifier default diagnostic for fatal error */
 	if (RC_resp != 0x47)	// Correct answer from Slave
 	{
 		clearScreen();
-		displayLCD_main(1, TxtDescr[7].descr, NONE, "NONE");	// Something went wrong with Master-Slave communication
-		displayLCD_main(2, TxtDescr[8].descr, NONE, "NONE");	// Something went wrong with Master-Slave communication
+		displayLCD_main(1, "Oops, something went", NONE, "NONE");	// Something went wrong with Master-Slave communication
+		displayLCD_main(2, "with the connection.", NONE, "NONE");	// Something went wrong with Master-Slave communication
 		pmpSt = 0;
 	}
 	else
 	{
-		displayLCD_main(2, TxtDescr[11].descr, bat_soc, "%"); // Eagle battery
+		displayLCD_main(3, "Battery Eagle: ", bat_soc, "%"); // Eagle battery
 		
 		/* Get water level */
 		uint8_t level_act = getActualLevel(distance);		
 		displayMeasurements( level_act );	// Display level, time to fill, diagnostics		
 		setPumpStatus( level_act );			// Control of water pump
+		setLevelLEDStatus( level_act );
 	}
 }
 
@@ -63,33 +64,33 @@ uint8_t getActualLevel(uint8_t distance)
 
 /* *****************************************************************
 Name:		displayMeasurements()
-Inputs:		Slave diagnostics and pointer to measurement metrics (level, filling time and forecast id)
+Inputs:		current water level
 Outputs:	none
 Description:displays water level, evolution forecast or slave diagnostics
 ******************************************************************** */
 void displayMeasurements( uint8_t level_act )
 {
 	displayLCD_main(1, "CLEAR", NONE, "NONE");	// Clear row 1
-	displayLCD_main(3, "CLEAR", NONE, "NONE");	// Clear row 2
+	displayLCD_main(4, "CLEAR", NONE, "NONE");	// Clear row 4
 
 	char full_level[] = "/160 cm";
-	displayLCD_main(1, "Level: ", level_act, full_level);	// Level: 
+	displayLCD_main(1, "Level: ", level_act, full_level);
 }
 
 /* *****************************************************************
 Name:		setPumpStatus()
-Inputs:		Slave diagnostics and pointer to measurement metrics (level, filling time and forecast id)
+Inputs:		current water level
 Outputs:	none
 Description:Sets pump flag (switch on or off)
 ******************************************************************** */
 void setPumpStatus( uint8_t level_act )
 {
 	// Pump control
-	if (  level_act < EMPTY_TANK_THRESHOLD )
+	if (  level_act < THD_TANK_MIN )
 	{
 		pmpSt = 1;	// Set status pump can be activated
 	}
-	else if ( level_act > PUMP_FULL_TANK )
+	else if ( level_act > THD_TANK_MAX )
 	{
 		pmpSt = 0;	// Set status pump has to be switched off
 	}
@@ -97,18 +98,19 @@ void setPumpStatus( uint8_t level_act )
 
 /* *****************************************************************
 Name:		setLevelLEDStatus()
-Inputs:		Slave diagnostics and pointer to measurement metrics (level, filling time and forecast id)
+Inputs:		current water level
 Outputs:	none
 Description:Sets LED flag (switch on or off)
 ******************************************************************** */
 void setLevelLEDStatus( uint8_t level_act )
 {
 	// WL LED control
-	if ( level_act < EMPTY_TANK_THRESHOLD )		// Water below above min. threshold
+	if ( level_act < THD_TANK_MAX )		// Water below above min. threshold
 	{
 		ledSt = 1;	// Turn on LED
 	}
-	else if ( level_act > EMPTY_TANK_THRESHOLD )	// Water level above min. threshold
+	else if ( level_act > THD_TANK_MAX )	// Water level above min. threshold
+	{
 		ledSt = 0;	// Turn off LED
 	}
 }
@@ -160,7 +162,7 @@ void UpdateMeasurementsTime( uint8_t newData, uint8_t cycles )
 	if (newData == 1)	// Display elapsed time since last measurement, but not since last connection loss
 	{
 		uint8_t elapsedTime = cycles / 7; // min
-		displayLCD_main(4, TxtDescr[9].descr, elapsedTime, TxtDescr[10].descr ); // Updated x min ago
+		displayLCD_main(4, "Updated ", elapsedTime, " min ago" ); // Updated x min ago
 	}
 }
 
@@ -176,13 +178,13 @@ void displayConnecting( uint8_t f_meas_available )
 	if (f_meas_available == 0)	// No previous measurements since last start
 	{
 		clearScreen();
-		displayLCD_main(1, TxtDescr[3].descr, NONE, "NONE" );	// Listening to Eagle..
-		displayLCD_main(2, TxtDescr[4].descr, NONE, "NONE" );	// This may take up to
-		displayLCD_main(3, TxtDescr[5].descr, NONE, "NONE" );	// x minutes.
+		displayLCD_main(1, "Listening to Eagle..", NONE, "NONE" );	// Listening to Eagle..
+		displayLCD_main(2, "This may take a few", NONE, "NONE" );	// This may take a few
+		displayLCD_main(3, "minutes.", NONE, "NONE" );	//  minutes.
 	}
 	else	// Put the "Listening to Eagle" part on 4th row after previous measurements
 	{
-		displayLCD_main(4, TxtDescr[3].descr, NONE, "NONE" );	// Listening to Eagle..
+		displayLCD_main(4, "Listening to Eagle..", NONE, "NONE" );	// Listening to Eagle..
 	}
 }
 
@@ -198,10 +200,10 @@ void displayNoResp ( uint8_t f_meas_available )
 	if (f_meas_available == 0) // If no previous measurements available
 	{
 		clearScreen();
-		displayLCD_main(1, TxtDescr[6].descr, NONE, "NONE" ); // No resp. from Eagle. on line 1
+		displayLCD_main(1, "No resp. from Eagle.", NONE, "NONE" ); // No resp. from Eagle. on line 1
 	}
 	else	// If previous measurements available
 	{
-		displayLCD_main(4, TxtDescr[6].descr, NONE, "NONE" ); // No resp. from Eagle. on line 4
+		displayLCD_main(4, "No resp. from Eagle.", NONE, "NONE" ); // No resp. from Eagle. on line 4
 	}
 }
