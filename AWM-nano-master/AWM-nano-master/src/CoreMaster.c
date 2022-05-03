@@ -71,10 +71,11 @@ Description:displays water level, evolution forecast or slave diagnostics
 void displayMeasurements( uint8_t level_act )
 {
 	displayLCD_main(1, "CLEAR", NONE, "NONE");	// Clear row 1
-	displayLCD_main(4, "CLEAR", NONE, "NONE");	// Clear row 4
 
 	char full_level[] = "/160 cm";
 	displayLCD_main(1, "Level: ", level_act, full_level);
+	displayLCD_main(2, "--------------------", NONE, "NONE");
+	
 }
 
 /* *****************************************************************

@@ -19,7 +19,6 @@
 
 /*----------------- Global variables ---------------*/
 
-
 volatile int f_wdt = 1;
 
 uint8_t pmpSt = 0;	// Status pump
