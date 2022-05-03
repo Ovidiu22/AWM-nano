@@ -34,7 +34,7 @@ int main(void)
 	uint8_t tx_iter = 0;
 	uint8_t tx_iter_max = 0;
 /*---------- Initialization -----------*/
-	//initSlave();
+	initSlave();
 	
 /*-------------- Cycle loop -----------*/
 	while(f_wdt == 1)
@@ -152,7 +152,7 @@ ISR(WDT_vect)
 	}
 	//else there is an error -> flag was not cleared
 }
-#if 0
+
 void initSlave(void) {
 	init_RGB(); // Initialize LED
 	set_RGB(red);	_delay_ms(100);
@@ -163,6 +163,6 @@ void initSlave(void) {
 
 	set_RGB_low;
 }
-#endif
+
 
 
