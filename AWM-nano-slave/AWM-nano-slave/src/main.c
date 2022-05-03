@@ -6,12 +6,11 @@
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 
-
 #include "nRF24L01.h"
 #include "Ultrasonic.h"
 #include "Diagnostics.h"
-#include "SOC.h"
 #include "PowerManagement.h"
+
 
 /*------------------ Global variables ---------------*/
 volatile uint16_t pulse;
@@ -24,8 +23,8 @@ static uint8_t pwrMngmntCycle = 100;	// higher than PWR_MNGMNT_CYCLE-1
 #define TRANSMIT_MAX_ITER_TOT 3	// cycles of burst sending iterations
 
 /*---------- Slave core specific functions ----------*/
-void initSlave(void);
 uint8_t *SlaveCoreFunctionality(void);
+void initSlave(void);
 
 /*----------------- Main function -------------------*/
 int main(void)
@@ -70,8 +69,8 @@ int main(void)
 			turnOff_nrf24l01(); 	// Turn off radio
 
 		}
-	/* Power management */
-	PwrMngmnt_main();
+		/* Power management */
+		PwrMngmnt_main();
 	}
 
 	return 0;
@@ -90,13 +89,13 @@ uint8_t *SlaveCoreFunctionality(void)
 	static uint8_t slave_resp[5];
 	uint8_t RC_resp = 0x47; // Always positive response
 	uint8_t WaterLevel = 0;
-	uint8_t soc_bat = 0;
+	//uint8_t soc_bat = 0;
 
 	/* Start measurements */
 	WaterLevel = getDistance_main();
 	
 	/* Battery State of Charge */
-	//uint8_t soc_bat = getBatterySOC();
+	uint8_t soc_bat = getBatterySOC();
 
 	/* Assign the values to the output variable */
 	slave_resp[0] = RC_resp;

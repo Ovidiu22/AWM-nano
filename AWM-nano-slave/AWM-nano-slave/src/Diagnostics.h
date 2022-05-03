@@ -23,5 +23,6 @@
 /* Prototype functions */
 void init_RGB(void);
 void set_RGB(uint8_t);
+uint8_t getBatterySOC( void );
 
 #endif /* DIAGNOSTICS_H_ */

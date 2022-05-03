@@ -8,8 +8,6 @@ src\nRF24L01.c
 
 src\PowerManagement.c
 
-src\SOC.c
-
 src\Ultrasonic.c
 
 src\ASF\mega\boards\atmega328p_xplained_mini\init.c

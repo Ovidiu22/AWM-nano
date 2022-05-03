@@ -235,12 +235,6 @@
     <Compile Include="src\PowerManagement.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\SOC.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\SOC.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Ultrasonic.c">
       <SubType>compile</SubType>
     </Compile>
